@@ -12,6 +12,11 @@ BONUS_FOLDER = ./bonus/
 BONUS_SOURCES = $(addprefix $(BONUS_FOLDER), main_bonus.c helpers_bonus.c open_files_bonus.c)
 BONUS_OBJECTS = $(subst $(BONUS_FOLDER),$(OBJECTS_FOLDER),$(BONUS_SOURCES:.c=.o))
 
+
+ifdef REMOVE_W_FLAGS
+	CFLAGS = 
+endif
+
 all: $(OBJECTS_FOLDER) $(NAME)
 
 $(OBJECTS_FOLDER):
