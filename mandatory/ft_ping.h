@@ -12,6 +12,7 @@
 #include <sys/time.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <arpa/inet.h>
 
 # define ECHO_REQUEST_BUFFER_SIZE 1500
 
