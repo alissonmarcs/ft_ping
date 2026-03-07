@@ -27,4 +27,21 @@ int main()
     sock_len = sizeof (struct sockaddr_in);
 
     sendto(socket_fd, buffer, 64, 0, (struct sockaddr *) &ip, sock_len);
+    
+    // Receber a echo reply
+    char recv_buffer[1024];
+    struct sockaddr_in recv_addr;
+    socklen_t recv_len = sizeof(recv_addr);
+    
+    ssize_t bytes_received = recvfrom(socket_fd, recv_buffer, sizeof(recv_buffer), 0,
+                                      (struct sockaddr *)&recv_addr, &recv_len);
+    
+    if (bytes_received < 0)
+    {
+        char *err = "erro ao receber resposta\n";
+        write(2, err, strlen(err));
+        exit(42);
+    }
+    
+    printf("Recebidos %ld bytes de %s\n", bytes_received, inet_ntoa(recv_addr.sin_addr));
 }
