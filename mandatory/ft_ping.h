@@ -17,5 +17,6 @@
 # define ECHO_REQUEST_BUFFER_SIZE 1500
 
 char * build_echo_request();
+void read_echo_reply(char * buffer, size_t size);
 
 #endif
