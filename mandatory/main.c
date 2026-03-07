@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <errno.h>
 #include "ft_ping.h"
 
 // ICMP_ECHO = 8
@@ -26,7 +26,12 @@ int main()
     ip.sin_addr.s_addr = inet_addr("8.8.8.8");
     sock_len = sizeof (struct sockaddr_in);
 
-    sendto(socket_fd, buffer, 64, 0, (struct sockaddr *) &ip, sock_len);
+    ssize_t ret = sendto(socket_fd, buffer, 64, 0, (struct sockaddr *) &ip, sock_len);
+    if (ret < 0)
+    {
+        perror("sendto: ");
+        printf("errno: %d", errno);
+    }
     
     // Receber a echo reply
     char recv_buffer[1024];
