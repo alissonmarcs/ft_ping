@@ -14,6 +14,10 @@
 #include <fcntl.h>
 #include <arpa/inet.h>
 
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netdb.h>
+
 # define ECHO_REQUEST_BUFFER_SIZE 1500
 
 char * build_echo_request();

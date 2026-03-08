@@ -37,8 +37,8 @@ char * build_echo_request()
     message->icmp_code = 0;
     message->icmp_id = getpid() & 0xffff;
     message->icmp_seq = 1;
-    // gettimeofday((struct timeval *) message->icmp_data, NULL);
-    memset(message->icmp_data, '(', 1);
+    memcpy(message->icmp_data, "mamae amo vc", 13);
+    // memset(message->icmp_data, 'A', 3);
     message->icmp_cksum = 0;
     message->icmp_cksum = calculate_check_sum( (uint16_t *) echo_request, 64);
 
