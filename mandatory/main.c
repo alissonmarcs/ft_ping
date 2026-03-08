@@ -16,11 +16,11 @@ int main()
     hints.ai_family = AF_INET;
     hints.ai_socktype = SOCK_RAW;
     hints.ai_flags = 0;
-    hints.ai_protocol = 1;
+    hints.ai_protocol = IPPROTO_ICMP;
 
     struct addrinfo *result = NULL;
     int getaddrinfo_ret;
-    char * host_name = "clubedohardware.com.br";
+    char * host_name = "g1.globo.com";
 
     getaddrinfo_ret = getaddrinfo(host_name, NULL, &hints, &result);
     if (getaddrinfo_ret < 0)
