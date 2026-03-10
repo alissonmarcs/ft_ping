@@ -5,16 +5,15 @@ CFLAGS = -Wall -Werror -Wextra -g3 -O0
 OBJECTS_FOLDER = ./obj/
 
 MANDATORY_FOLDER = ./mandatory/
-MANDATORY_SOURCES = $(addprefix $(MANDATORY_FOLDER), main.c build_echo_request.c)
+MANDATORY_SOURCES = $(addprefix $(MANDATORY_FOLDER), main.c build_echo_request.c read_echo_reply.c)
 MANDATORY_OBJECTS = $(subst $(MANDATORY_FOLDER),$(OBJECTS_FOLDER),$(MANDATORY_SOURCES:.c=.o))
 
 BONUS_FOLDER = ./bonus/
 BONUS_SOURCES = $(addprefix $(BONUS_FOLDER), main_bonus.c helpers_bonus.c open_files_bonus.c)
 BONUS_OBJECTS = $(subst $(BONUS_FOLDER),$(OBJECTS_FOLDER),$(BONUS_SOURCES:.c=.o))
 
-
 ifdef REMOVE_W_FLAGS
-	CFLAGS = 
+	CFLAGS =
 endif
 
 all: $(OBJECTS_FOLDER) $(NAME)

@@ -12,9 +12,15 @@
 #include <sys/time.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <arpa/inet.h>
+
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netdb.h>
 
 # define ECHO_REQUEST_BUFFER_SIZE 1500
 
 char * build_echo_request();
+void read_echo_reply(char * buffer, size_t size);
 
 #endif
