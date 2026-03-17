@@ -6,8 +6,8 @@
 
 int main()
 {
-    int socket_fd;
 
+   int socket_fd;
 
     char *buffer = build_echo_request();
 
@@ -20,7 +20,7 @@ int main()
 
     struct addrinfo *result = NULL;
     int getaddrinfo_ret;
-    char * host_name = "g1.globo.com";
+    char * host_name = "google.com";
 
     getaddrinfo_ret = getaddrinfo(host_name, NULL, &hints, &result);
     if (getaddrinfo_ret < 0)
