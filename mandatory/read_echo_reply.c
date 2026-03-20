@@ -29,10 +29,8 @@ void read_echo_reply(char * buffer, size_t size)
 
     memset(&result, '\0', sizeof (result));
     gettimeofday(&current_time, NULL);
-
     timersub(send_time, &current_time, &result);
+    double rtt = (result.tv_sec * 1000.0) + (result.tv_usec / 1000.0);
 
-    // long long result_miliseconds = (result.tv_sec * 1000) + (result.tv_usec / 1000);
-    printf("miliseconds: %ld.%ld ms\n", result.tv_sec * 1000, result.tv_usec);
-    // print_bytes(buffer, size);
+    printf("%.f ms\n", rtt);
 }

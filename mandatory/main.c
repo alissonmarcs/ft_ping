@@ -75,7 +75,7 @@ int main()
     }
 
     printf("AQUII\n");
-    
+
     char recv_buffer[1024];
     struct sockaddr_in recv_addr;
     socklen_t recv_len = sizeof(recv_addr);
