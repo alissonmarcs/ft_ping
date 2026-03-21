@@ -19,8 +19,12 @@ void read_echo_reply(char * buffer, size_t size)
     size_t ip_header_size;
 
     ip = (struct ip *) buffer;
+
+    if (ip->ip_p != IPPROTO_ICMP)
+        return ;
+
     ip_header_size = ip->ip_hl << 2;
-    icmp = (struct icmp *) buffer + ip_header_size;
+    icmp = (struct icmp *) (buffer + ip_header_size);
     size_t icmp_data_len = size - (ip_header_size + 8);
 
     struct timeval result;
@@ -28,9 +32,10 @@ void read_echo_reply(char * buffer, size_t size)
     struct timeval * send_time = (struct timeval *) icmp->icmp_data;
 
     memset(&result, '\0', sizeof (result));
+
     gettimeofday(&current_time, NULL);
-    timersub(send_time, &current_time, &result);
+    timersub(&current_time, send_time, &result);
     double rtt = (result.tv_sec * 1000.0) + (result.tv_usec / 1000.0);
 
-    printf("%.f ms\n", rtt);
+    printf("%.2f ms\n", rtt);
 }

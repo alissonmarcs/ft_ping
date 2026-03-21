@@ -7,7 +7,27 @@
 int main()
 {
 
-   int socket_fd;
+    // struct timeval a = {
+    //     .tv_sec = 43,
+    //     .tv_usec = 100
+    // };
+    
+    // struct timeval b = {
+    //     .tv_sec = 42,
+    //     .tv_usec = 101
+    // };
+
+
+    // struct timeval result = {0};
+
+    // timersub(&a, &b, &result);
+
+    // printf("sec: %ld\n", result.tv_sec);
+    // printf("usec: %d\n", result.tv_usec);
+
+    // printf("MACRO: %d\n", IPPROTO_ICMP);
+
+    int socket_fd;
 
     char *buffer = build_echo_request();
 
