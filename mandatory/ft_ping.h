@@ -23,4 +23,11 @@
 char * build_echo_request();
 void read_echo_reply(char * buffer, size_t size);
 
+typedef struct ping
+{
+    int seq;
+    pid_t pid;
+} ft_ping;
+
+
 #endif

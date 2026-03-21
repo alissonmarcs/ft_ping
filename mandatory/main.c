@@ -6,6 +6,9 @@
 
 int main()
 {
+    ft_ping ping;
+
+    memset(&ping, '\0', sizeof (ft_ping));
 
     // struct timeval a = {
     //     .tv_sec = 43,
