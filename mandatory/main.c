@@ -13,17 +13,50 @@ void handler(int sig)
 
 int main()
 {
-    struct sigaction config_handler;
+    // struct sigaction config_handler;
 
-    memset(&config_handler, '\0', sizeof(config_handler));
-    config_handler.sa_handler = handler;
+    // memset(&config_handler, '\0', sizeof(config_handler));
+    // config_handler.sa_handler = handler;
 
-    sigaction(SIGALRM, &config_handler, NULL);
+    // sigaction(SIGALRM, &config_handler, NULL);
 
-    handler(42);
+    // handler(42);
 
-    while (1)
-        ;
+    // while (1)
+    //     ;
+
+    ping.pid = getpid() & 0xffff;
+    ping.seq = 1;
+
+    printf("ft_ping pid: %d\n", ping.pid);
+
+    int socket_fd;
+    struct sockaddr_in remote_host;
+    socklen_t remote_host_len;
+    memset(&remote_host, '\0', sizeof (struct sockaddr_in));
+
+    socket_fd = socket(AF_INET, SOCK_RAW, IPPROTO_ICMP);
+    if (socket_fd < 0)
+        FATAL_ERROR("socket()");
+
+    if (inet_aton("127.0.0.1", &remote_host.sin_addr) == 0)
+        FATAL_ERROR("inet_aton()");
+    remote_host_len = sizeof (struct sockaddr_in);
+
+    while (42)
+    {
+        build_echo_request_v2();
+
+        if (sendto(socket_fd, ping.echo_request, ECHO_REQUEST_SIZE, 0, (struct sockaddr *) &remote_host, remote_host_len) < 0)
+            FATAL_ERROR("sendto()");
+
+        size_t bytes_received;
+        if ((bytes_received = recvfrom(socket_fd, ping.echo_reply, ECHO_REQUEST_SIZE, 0, NULL, NULL)) < 0) 
+            FATAL_ERROR("recvfrom()");
+        read_echo_reply(ping.echo_reply, bytes_received);
+        sleep(1);
+    }
+
 
     // ft_ping ping;
 

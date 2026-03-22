@@ -22,19 +22,25 @@
 #include <stdio.h>
 #include <errno.h>
 
-# define ECHO_REQUEST_BUFFER_SIZE 1500
+#include <sys/epoll.h>
+
+# define ECHO_REQUEST_SIZE 64
+# define FATAL_ERROR(msg) fatal_error (msg, __FILE__, __LINE__)
 
 char * build_echo_request();
 void read_echo_reply(char * buffer, size_t size);
 void endless_loop();
+void fatal_error (const char *msg, const char *file, long line);
+
+void build_echo_request_v2();
 
 typedef struct ping
 {
     int seq;
     pid_t pid;
     int socket;
-    char recv_buffer[100];
-    char sendto_buffer[100];
+    char echo_reply[ECHO_REQUEST_SIZE];
+    char echo_request[ECHO_REQUEST_SIZE];
 
 } ft_ping;
 

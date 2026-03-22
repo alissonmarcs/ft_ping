@@ -17,6 +17,7 @@ void read_echo_reply(char * buffer, size_t size)
     struct ip * ip;
     struct icmp * icmp;
     size_t ip_header_size;
+    size_t icmp_package_len;
 
     ip = (struct ip *) buffer;
 
@@ -25,7 +26,17 @@ void read_echo_reply(char * buffer, size_t size)
 
     ip_header_size = ip->ip_hl << 2;
     icmp = (struct icmp *) (buffer + ip_header_size);
-    size_t icmp_data_len = size - (ip_header_size + 8);
+
+    if ((icmp_package_len = size - ip_header_size) < 8)
+        return ;
+
+    if (icmp->icmp_id != ping.pid) 
+        return ;
+
+    if (icmp->icmp_type != ICMP_ECHOREPLY) 
+        return ;
+    if (icmp_package_len < 16)
+        return ;
 
     struct timeval result;
     struct timeval current_time;

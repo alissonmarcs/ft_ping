@@ -25,21 +25,19 @@ calculate_check_sum (uint16_t * addr, int len)
     return (answer);
 }
 
-char * build_echo_request()
+void build_echo_request_v2()
 {
-    char * echo_request;
-    struct icmp *message;
+    struct icmp *buffer;
 
-    echo_request = malloc(ECHO_REQUEST_BUFFER_SIZE);
-    memset(echo_request, '\0', ECHO_REQUEST_BUFFER_SIZE);
-    message = (struct icmp *) echo_request;
-    message->icmp_type = ICMP_ECHO;
-    message->icmp_code = 0;
-    message->icmp_id = getpid() & 0xffff;
-    message->icmp_seq = 1;
-    gettimeofday((struct timeval *) message->icmp_data, NULL);
-    message->icmp_cksum = 0;
-    message->icmp_cksum = calculate_check_sum( (uint16_t *) echo_request, 64);
-
-    return echo_request;
+    buffer = (struct icmp *) ping.echo_request;
+    memset(buffer, '\0', ECHO_REQUEST_SIZE);
+    buffer->icmp_type = ICMP_ECHO;
+    buffer->icmp_code = 0;
+    buffer->icmp_id = ping.pid;
+    buffer->icmp_seq = ping.seq;
+    ping.seq++;
+    memset(buffer->icmp_data, 0xa5, 56);
+    gettimeofday((struct timeval *) buffer->icmp_data, NULL);
+    buffer->icmp_cksum = 0;
+    buffer->icmp_cksum = calculate_check_sum( (uint16_t *) buffer, ECHO_REQUEST_SIZE);
 }
