@@ -25,7 +25,7 @@ calculate_check_sum (uint16_t * addr, int len)
     return (answer);
 }
 
-void build_echo_request_v2()
+void build_echo_request()
 {
     struct icmp *buffer;
 

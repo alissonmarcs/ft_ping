@@ -27,20 +27,26 @@
 # define ECHO_REQUEST_SIZE 64
 # define FATAL_ERROR(msg) fatal_error (msg, __FILE__, __LINE__)
 
-char * build_echo_request();
 void read_echo_reply(char * buffer, size_t size);
 void endless_loop();
 void fatal_error (const char *msg, const char *file, long line);
 
-void build_echo_request_v2();
+void build_echo_request();
+void handler(int sig);
+struct addrinfo * resolve_hostname(char * hostname);
 
 typedef struct ping
 {
     int seq;
     pid_t pid;
-    int socket;
+    int socket_fd;
+    int socket_domain;
+    int socket_type;
+    int socket_protocol;
     char echo_reply[ECHO_REQUEST_SIZE];
     char echo_request[ECHO_REQUEST_SIZE];
+    struct sockaddr_in sendto_remote_host;
+    socklen_t sendto_remote_host_len;
 
 } ft_ping;
 

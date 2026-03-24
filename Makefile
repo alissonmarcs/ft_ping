@@ -6,7 +6,7 @@ CC = cc -g3 -O0
 OBJECTS_FOLDER = ./obj/
 
 MANDATORY_FOLDER = ./mandatory/
-MANDATORY_SOURCES = $(addprefix $(MANDATORY_FOLDER), main.c utils.c build_echo_request.c read_echo_reply.c)
+MANDATORY_SOURCES = $(addprefix $(MANDATORY_FOLDER), main.c resolve_hostname.c endless_loop.c utils.c build_echo_request.c read_echo_reply.c)
 MANDATORY_OBJECTS = $(subst $(MANDATORY_FOLDER),$(OBJECTS_FOLDER),$(MANDATORY_SOURCES:.c=.o))
 
 all: $(OBJECTS_FOLDER) $(NAME)
