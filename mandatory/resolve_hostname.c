@@ -1,6 +1,6 @@
 #include "ft_ping.h"
 
-struct addrinfo * resolve_hostname(char * hostname)
+void resolve_hostname(char * hostname)
 {
     struct addrinfo hints;
     struct addrinfo *result = NULL;
@@ -32,5 +32,7 @@ struct addrinfo * resolve_hostname(char * hostname)
 
     memcpy(&ping.sendto_remote_host, current->ai_addr, current->ai_addrlen);
     ping.sendto_remote_host_len = current->ai_addrlen;
+    if (inet_ntop(AF_INET, &ping.sendto_remote_host.sin_addr, ping.remote_host_ip, INET_ADDRSTRLEN) == NULL) 
+        FATAL_ERROR("inet_ntop");
     freeaddrinfo(result);
 }

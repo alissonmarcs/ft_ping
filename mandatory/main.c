@@ -28,7 +28,7 @@ int main()
     ping.pid = getpid() & 0xffff;
     ping.seq = 1;
 
-    resolve_hostname("google.com");
+    resolve_hostname("globo.com");
 
     ping.socket_fd = socket(ping.socket_domain, ping.socket_type, ping.socket_protocol);
     if (ping.socket_fd < 0)

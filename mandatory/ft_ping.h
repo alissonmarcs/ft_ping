@@ -33,7 +33,7 @@ void fatal_error (const char *msg, const char *file, long line);
 
 void build_echo_request();
 void handler(int sig);
-struct addrinfo * resolve_hostname(char * hostname);
+void resolve_hostname(char * hostname);
 
 typedef struct ping
 {
@@ -43,12 +43,21 @@ typedef struct ping
     int socket_domain;
     int socket_type;
     int socket_protocol;
-    char echo_reply[ECHO_REQUEST_SIZE];
+    char raw_echo_reply[ECHO_REQUEST_SIZE];
     char echo_request[ECHO_REQUEST_SIZE];
+    char remote_host_ip[INET_ADDRSTRLEN];
     struct sockaddr_in sendto_remote_host;
     socklen_t sendto_remote_host_len;
-
+    double current_rtt;
 } ft_ping;
+
+typedef struct carla
+{
+    int icmp_sequence;
+    double round_trip_time;
+    int time_to_live;
+} echo_reply;
+
 
 extern ft_ping ping;
 

@@ -18,6 +18,7 @@ void read_echo_reply(char * buffer, size_t size)
     struct icmp * icmp;
     size_t ip_header_size;
     size_t icmp_package_len;
+    double rtt;
 
     ip = (struct ip *) buffer;
 
@@ -46,7 +47,7 @@ void read_echo_reply(char * buffer, size_t size)
 
     gettimeofday(&current_time, NULL);
     timersub(&current_time, send_time, &result);
-    double rtt = (result.tv_sec * 1000.0) + (result.tv_usec / 1000.0);
-
-    printf("%.2f ms\n", rtt);
+    rtt = (result.tv_sec * 1000.0) + (result.tv_usec / 1000.0);
+    
+    printf("%ld bytes from %s: icmp_seq=%d ttl=%d time=%.3f ms\n", size, ping.remote_host_ip, icmp->icmp_seq, ip->ip_ttl ,rtt);
 }
