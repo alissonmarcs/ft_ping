@@ -13,7 +13,10 @@ void resolve_hostname(char * hostname)
     hints.ai_protocol = IPPROTO_ICMP;
 
     if (getaddrinfo(hostname, NULL, &hints, &result) < 0)
+    {
+        freeaddrinfo(result);
         FATAL_ERROR("getaddrinfo()");
+    }
 
     current = result;
     while (current != NULL)
