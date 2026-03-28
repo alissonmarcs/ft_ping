@@ -35,11 +35,9 @@
 void read_echo_reply(char * buffer, size_t size);
 void endless_loop();
 void fatal_error (const char *msg, const char *file, long line);
-
 void build_echo_request();
 void handler(int sig);
 void resolve_hostname(char * hostname);
-
 void handler_sigalarm(int sig);
 void handler_sigint(int sig);
 void help();
@@ -78,8 +76,6 @@ typedef struct carla
     int time_to_live;
 } echo_reply;
 
-
 extern ft_ping ping;
-
 
 #endif
