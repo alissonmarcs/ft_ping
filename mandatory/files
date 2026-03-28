@@ -1,2 +1,0 @@
-build_echo_request.c endless_loop.c files
-    ft_ping.h main.c read_echo_reply.c resolve_hostname.c utils.c
