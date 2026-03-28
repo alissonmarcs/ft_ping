@@ -55,10 +55,11 @@ void setup_signal_handlers()
 
 void help()
 {
-    printf("Usage: ft_ping [options] host\n");
-    printf("Options:\n");
-    printf("\t-v\tverbose mode\n");
-    printf("\t-?\tthis help message\n");
-
+    printf(
+      "Usage: ft_ping [options] host\n"
+      "Options:\n"
+      "\t-v\tverbose mode\n"
+      "\t-?\tthis help message\n"
+    );
    exit(0);
 }
