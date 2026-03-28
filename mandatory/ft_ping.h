@@ -23,9 +23,14 @@
 #include <errno.h>
 
 #include <sys/epoll.h>
+#include <math.h>
 
 # define ECHO_REQUEST_SIZE 64
 # define FATAL_ERROR(msg) fatal_error (msg, __FILE__, __LINE__)
+
+#define MIN(a,b) (((a) < (b)) ? (a) : (b))
+#define MAX(a,b) (((a) > (b)) ? (a) : (b))
+
 
 void read_echo_reply(char * buffer, size_t size);
 void endless_loop();
@@ -50,6 +55,14 @@ typedef struct ping
     struct sockaddr_in sendto_remote_host;
     socklen_t sendto_remote_host_len;
     double current_rtt;
+    double min_rtt;
+    double max_rtt;
+    double avg_rtt;
+    double stddev_rtt;
+    double rtt_sum;
+    double rtt_sum2;
+    int packets_transmitted;
+    int packets_received;
 } ft_ping;
 
 typedef struct carla
