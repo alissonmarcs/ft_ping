@@ -18,7 +18,7 @@ void handler_sigint(int sig)
 {
     if (sig != SIGINT)
         return; 
-    printf("BYE\n");
+    printf("--- %s ping statistics ---\n", ping.remote_host_ip);
     exit(0);
 }
 
