@@ -66,6 +66,14 @@ setup_signal_handlers ()
 }
 
 void
+missing_host_error ()
+{
+  dprintf (2, "ft_ping: missing host operand\n"
+              "Try 'ft_ping -?' for more information.\n");
+  exit (1);
+}
+
+void
 help ()
 {
   printf ("Usage: ft_ping [options] host\n"

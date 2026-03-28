@@ -41,6 +41,7 @@ void handler_sigalarm (int sig);
 void handler_sigint (int sig);
 void help ();
 void setup_signal_handlers ();
+void missing_host_error ();
 
 typedef struct ping
 {

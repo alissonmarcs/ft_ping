@@ -17,11 +17,7 @@ main (int argc, char *argv[])
     }
 
   if (optind == argc)
-    {
-      dprintf (2, "ft_ping: missing host operand\n"
-                  "Try 'ft_ping -?' for more information.\n");
-      exit (1);
-    }
+    missing_host_error ();
 
   setup_signal_handlers ();
 
