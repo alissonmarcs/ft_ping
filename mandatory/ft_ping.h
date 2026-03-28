@@ -51,6 +51,7 @@ typedef struct ping
     char raw_echo_reply[ECHO_REQUEST_SIZE];
     char echo_request[ECHO_REQUEST_SIZE];
     char remote_host_ip[INET_ADDRSTRLEN];
+    char canonical_domain_name[255];
     char * remote_host_domain_name;
     struct sockaddr_in sendto_remote_host;
     socklen_t sendto_remote_host_len;

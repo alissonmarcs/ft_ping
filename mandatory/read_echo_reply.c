@@ -50,7 +50,7 @@ void read_echo_reply(char * buffer, size_t size)
     rtt = (result.tv_sec * 1000.0) + (result.tv_usec / 1000.0);
 
     ping.rtt_sum += rtt;
-    ping.rtt_sum2 += rtt * rtt;
+    ping.rtt_sum2 += pow(rtt, 2);
 
     printf("%ld bytes from %s: icmp_seq=%d ttl=%d time=%.3f ms\n", size, ping.remote_host_ip, icmp->icmp_seq, ip->ip_ttl ,rtt);
 

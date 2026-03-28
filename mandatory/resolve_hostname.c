@@ -9,7 +9,7 @@ void resolve_hostname(char * hostname)
     memset(&hints, '\0', sizeof (struct addrinfo));
     hints.ai_family = AF_INET;
     hints.ai_socktype = SOCK_RAW;
-    hints.ai_flags = 0;
+    hints.ai_flags = AI_CANONNAME;
     hints.ai_protocol = IPPROTO_ICMP;
 
     if (getaddrinfo(hostname, NULL, &hints, &result) < 0)
@@ -32,6 +32,11 @@ void resolve_hostname(char * hostname)
     ping.socket_domain = current->ai_family;
     ping.socket_type = current->ai_socktype;
     ping.socket_protocol = current->ai_protocol;
+    if (current->ai_canonname)
+        strncpy(ping.canonical_domain_name, current->ai_canonname, sizeof(ping.canonical_domain_name));
+    else
+        strncpy(ping.canonical_domain_name, hostname, sizeof(ping.canonical_domain_name));
+
 
     memcpy(&ping.sendto_remote_host, current->ai_addr, current->ai_addrlen);
     ping.sendto_remote_host_len = current->ai_addrlen;

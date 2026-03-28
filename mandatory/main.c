@@ -50,14 +50,13 @@ int main(int argc, char **argv)
         FATAL_ERROR("sigaction()");
 
     ping.pid = getpid() & 0xffff;
-    ping.seq = 1;
 
     (void) argc;
-    ping.remote_host_domain_name = argv[1];
+    // ping.remote_host_domain_name = argv[1];
 
-    resolve_hostname(ping.remote_host_domain_name);
+    resolve_hostname(argv[1]);
 
-    printf("PING %s (%s): 56 data bytes\n", ping.remote_host_domain_name, ping.remote_host_ip);
+    printf("PING %s (%s): 56 data bytes\n", ping.canonical_domain_name, ping.remote_host_ip);
 
     ping.socket_fd = socket(ping.socket_domain, ping.socket_type, ping.socket_protocol);
     if (ping.socket_fd < 0)
