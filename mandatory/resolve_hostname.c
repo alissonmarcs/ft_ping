@@ -16,7 +16,8 @@ resolve_hostname (char *hostname)
   if (getaddrinfo (hostname, NULL, &hints, &result) < 0)
     {
       freeaddrinfo (result);
-      FATAL_ERROR ("getaddrinfo()");
+      dprintf(2, "ft_ping: unknown host\n");
+      exit(EXIT_FAILURE);
     }
 
   current = result;
