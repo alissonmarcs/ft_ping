@@ -1,9 +1,6 @@
 #include "ft_ping.h"
 
-// ICMP_ECHO = 8
-
 ft_ping ping;
-
 
 int main(int argc, char *argv[])
 {
