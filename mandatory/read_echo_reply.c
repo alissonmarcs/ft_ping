@@ -1,17 +1,5 @@
 #include "ft_ping.h"
 
-
-void print_bytes(char * arr, size_t bytes)
-{
-   size_t i = 0;
-   
-   while (i < bytes)
-   {
-        printf("byte %ld: %c\n", i, arr[i]);
-        i++;
-   }
-}
-
 void read_echo_reply(char * buffer, size_t size)
 {
     struct ip * ip;
