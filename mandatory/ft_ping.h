@@ -40,6 +40,11 @@ void build_echo_request();
 void handler(int sig);
 void resolve_hostname(char * hostname);
 
+void handler_sigalarm(int sig);
+void handler_sigint(int sig);
+void help();
+void setup_signal_handlers();
+
 typedef struct ping
 {
     int seq;
