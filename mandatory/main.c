@@ -32,29 +32,58 @@ void handler_sigint(int sig)
     exit(0);
 }
 
-int main(int argc, char **argv)
+void help()
 {
-    struct sigaction config_handler;
+    printf("Usage: ft_ping [options] host\n");
+    printf("Options:\n");
+    printf("\t-v\tverbose mode\n");
+    printf("\t-?\tthis help message\n");
 
-    memset(&config_handler, '\0', sizeof(config_handler));
-    config_handler.sa_handler = handler_sigalarm;
-    config_handler.sa_flags = SA_RESTART;
+   exit(0);
+}
 
-    if (sigaction(SIGALRM, &config_handler, NULL) == -1)
+int main(int argc, char *argv[])
+{
+    int option, v_flag, help_flag;
+
+    option = v_flag = help_flag = 0;
+    while ((option = getopt(argc, argv, "v?")) != -1)
+    {
+        if (option == '?')
+            help();
+        else if (option == 'v')
+            v_flag = 1;
+    }
+
+    if (optind == argc)
+    {
+        dprintf(
+            2,
+            "ft_ping: missing host operand\n"
+            "Try 'ft_ping -?' for more information.\n"
+        );
+        exit(1);
+    }
+
+
+    struct sigaction config_handlers;
+
+    memset(&config_handlers, '\0', sizeof(config_handlers));
+    config_handlers.sa_handler = handler_sigalarm;
+    config_handlers.sa_flags = SA_RESTART;
+
+    if (sigaction(SIGALRM, &config_handlers, NULL) == -1)
         FATAL_ERROR("sigaction()");
 
-    memset(&config_handler, '\0', sizeof(config_handler));
-    config_handler.sa_handler = handler_sigint;
+    memset(&config_handlers, '\0', sizeof(config_handlers));
+    config_handlers.sa_handler = handler_sigint;
 
-    if (sigaction(SIGINT, &config_handler, NULL) == -1)
+    if (sigaction(SIGINT, &config_handlers, NULL) == -1)
         FATAL_ERROR("sigaction()");
 
     ping.pid = getpid() & 0xffff;
 
-    (void) argc;
-    // ping.remote_host_domain_name = argv[1];
-
-    resolve_hostname(argv[1]);
+    resolve_hostname(argv[optind]);
 
     printf("PING %s (%s): 56 data bytes\n", ping.canonical_domain_name, ping.remote_host_ip);
 
