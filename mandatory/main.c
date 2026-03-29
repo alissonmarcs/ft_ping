@@ -25,18 +25,21 @@ main (int argc, char *argv[])
 
   resolve_hostname (argv[optind]);
 
-  printf ("PING %s (%s): 56 data bytes", ping.canonical_domain_name,
-          ping.remote_host_ip);
 
-  if (v_flag)
-    printf ("id %#x = %d\n", ping.pid, ping.pid);
-  else
-    printf ("\n");
 
   ping.socket_fd
       = socket (ping.socket_domain, ping.socket_type, ping.socket_protocol);
   if (ping.socket_fd < 0)
     FATAL_ERROR ("socket()");
+
+  printf ("PING %s (%s): 56 data bytes", ping.canonical_domain_name,
+          ping.remote_host_ip);
+  if (v_flag)
+    printf ("id %#x = %d\n", ping.pid, ping.pid);
+  else
+    printf ("\n");
+
+
 
   handler_sigalarm (SIGALRM);
   endless_loop ();
