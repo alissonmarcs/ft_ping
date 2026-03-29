@@ -25,12 +25,13 @@ main (int argc, char *argv[])
 
   resolve_hostname (argv[optind]);
 
-
-
   ping.socket_fd
       = socket (ping.socket_domain, ping.socket_type, ping.socket_protocol);
   if (ping.socket_fd < 0)
-    FATAL_ERROR ("socket()");
+    {
+      dprintf (2, "ft_ping: Lacking privilege for icmp socket.\n");
+      exit (1);
+    }
 
   printf ("PING %s (%s): 56 data bytes", ping.canonical_domain_name,
           ping.remote_host_ip);
@@ -38,8 +39,6 @@ main (int argc, char *argv[])
     printf ("id %#x = %d\n", ping.pid, ping.pid);
   else
     printf ("\n");
-
-
 
   handler_sigalarm (SIGALRM);
   endless_loop ();

@@ -29,7 +29,10 @@ resolve_hostname (char *hostname)
     }
 
   if (current == NULL)
-    FATAL_ERROR ("getaddrinfo() arrived at end of linked list");
+    {
+      freeaddrinfo (result);
+      FATAL_ERROR ("getaddrinfo() arrived at end of linked list");
+    }
 
   ping.socket_domain = current->ai_family;
   ping.socket_type = current->ai_socktype;
@@ -46,6 +49,9 @@ resolve_hostname (char *hostname)
   if (inet_ntop (AF_INET, &ping.sendto_remote_host.sin_addr,
                  ping.remote_host_ip, INET_ADDRSTRLEN)
       == NULL)
-    FATAL_ERROR ("inet_ntop");
+    {
+      freeaddrinfo (result);
+      FATAL_ERROR ("inet_ntop");
+    }
   freeaddrinfo (result);
 }
